@@ -2,8 +2,18 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { Question, QuizMode } from "../types";
 
 // Initialize Gemini Client
-// IMPORTANT: process.env.GEMINI_API_KEY is assumed to be available in the environment
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || process.env.API_KEY });
+// Resolve API key: Vite define replacement -> import.meta.env (Vite standard) -> globalThis fallback
+const resolveApiKey = (): string => {
+  // Vite's define will replace process.env.* at build/dev time
+  try { if (process.env.GEMINI_API_KEY) return process.env.GEMINI_API_KEY; } catch {}
+  try { if (process.env.API_KEY) return process.env.API_KEY; } catch {}
+  // Fallback for non-bundled environments
+  if (typeof globalThis !== 'undefined' && (globalThis as any).__GEMINI_API_KEY__) {
+    return (globalThis as any).__GEMINI_API_KEY__;
+  }
+  return '';
+};
+const ai = new GoogleGenAI({ apiKey: resolveApiKey() });
 
 export const generateQuestions = async (topic: string, count: number, mode: QuizMode, ignoreStems: string[] = [], isPYQ: boolean = false): Promise<Question[]> => {
   const model = isPYQ ? "gemini-3.1-pro-preview" : "gemini-3-flash-preview";
