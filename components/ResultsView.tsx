@@ -127,6 +127,11 @@ const ResultsView: React.FC<ResultsViewProps> = ({ questions, userAnswers, onRes
                           <span className={`px-2 py-0.5 rounded text-xs font-medium border ${getPrecisionColor(q.precision)}`}>
                               Precision: {q.precision}
                           </span>
+                          {q.pyqReference && (
+                            <span className="px-2 py-0.5 rounded text-xs font-medium border bg-amber-50 text-amber-700 border-amber-200">
+                              {q.pyqReference}
+                            </span>
+                          )}
                       </div>
                       
                       {/* Info Button for Explanation */}
