@@ -2,12 +2,7 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { Question, QuizMode } from "../types";
 
 // Initialize Gemini Client
-const resolveApiKey = (): string => {
-  try { if (process.env.GEMINI_API_KEY) return process.env.GEMINI_API_KEY; } catch {}
-  try { if (process.env.API_KEY) return process.env.API_KEY; } catch {}
-  return 'AIzaSyAFzOJfAx74MIs_l3O8mr6A13ynrvk4dtw';
-};
-const ai = new GoogleGenAI({ apiKey: resolveApiKey() });
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || process.env.API_KEY || 'AIzaSyAFzOJfAx74MIs_l3O8mr6A13ynrvk4dtw' });
 
 export const generateQuestions = async (topic: string, count: number, mode: QuizMode, ignoreStems: string[] = [], isPYQ: boolean = false): Promise<Question[]> => {
   const model = "gemini-3-flash-preview";
