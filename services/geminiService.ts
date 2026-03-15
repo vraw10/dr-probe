@@ -2,7 +2,7 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { Question, QuizMode } from "../types";
 
 // Initialize Gemini Client
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || process.env.API_KEY || 'AIzaSyAFzOJfAx74MIs_l3O8mr6A13ynrvk4dtw' });
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const generateQuestions = async (topic: string, count: number, mode: QuizMode, ignoreStems: string[] = [], isPYQ: boolean = false): Promise<Question[]> => {
   const model = "gemini-3-flash-preview";
