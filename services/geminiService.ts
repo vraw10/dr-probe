@@ -10,7 +10,7 @@ const resolveApiKey = (): string => {
 const ai = new GoogleGenAI({ apiKey: resolveApiKey() });
 
 export const generateQuestions = async (topic: string, count: number, mode: QuizMode, ignoreStems: string[] = [], isPYQ: boolean = false): Promise<Question[]> => {
-  const model = isPYQ ? "gemini-3.1-pro-preview" : "gemini-3-flash-preview";
+  const model = "gemini-3-flash-preview";
 
   let modeInstructions = "";
 
