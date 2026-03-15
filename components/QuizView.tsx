@@ -63,9 +63,6 @@ const QuizView: React.FC<QuizViewProps> = ({ questions, onComplete, topic }) => 
       <div className="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden min-h-[400px] flex flex-col">
         {/* Badges */}
         <div className="bg-slate-50 px-6 py-3 border-b border-slate-100 flex gap-2">
-           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800 border border-slate-200">
-            {currentQuestion.topicTag}
-          </span>
           {currentQuestion.visualDescription && (
             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100 text-indigo-700 border border-indigo-200">
               📸 Visual Case
