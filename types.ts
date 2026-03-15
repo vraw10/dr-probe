@@ -9,7 +9,6 @@ export interface Question {
   correctAnswerIndex: number;
   difficulty: Difficulty;
   precision: Precision;
-  topicTag: string;
   explanation: string;
   visualDescription?: string; // Description of the clinical image
   imageUrl?: string; // Generated image URL

@@ -126,9 +126,6 @@ export const generateQuestions = async (topic: string, count: number, mode: Quiz
                 type: Type.STRING,
                 enum: ["Low", "Med", "High"]
               },
-              topicTag: {
-                type: Type.STRING
-              },
               explanation: {
                 type: Type.STRING
               },
@@ -137,7 +134,7 @@ export const generateQuestions = async (topic: string, count: number, mode: Quiz
                 description: "A detailed text description of the clinical image/ECG/Slide associated with this question. Required if Visual Mode is active."
               }
             },
-            required: ["text", "options", "correctAnswerIndex", "difficulty", "precision", "topicTag", "explanation"]
+            required: ["text", "options", "correctAnswerIndex", "difficulty", "precision", "explanation"]
           }
         }
       }
@@ -172,7 +169,6 @@ export const generateQuestions = async (topic: string, count: number, mode: Quiz
         correctAnswerIndex: q.correctAnswerIndex,
         difficulty: q.difficulty,
         precision: q.precision,
-        topicTag: q.topicTag,
         explanation: q.explanation,
         visualDescription: visualDescription,
         imageUrl: imageUrl
