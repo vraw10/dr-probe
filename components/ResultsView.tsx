@@ -145,23 +145,6 @@ const ResultsView: React.FC<ResultsViewProps> = ({ questions, userAnswers, onRes
                       </button>
                     </div>
 
-                    {/* Image in Review */}
-                    {q.imageUrl && (
-                       <div className="mb-4 rounded-lg overflow-hidden border border-slate-100 bg-slate-50 flex justify-center p-2">
-                        <img 
-                          src={q.imageUrl} 
-                          alt="Clinical Finding" 
-                          className="max-h-64 w-auto object-contain"
-                        />
-                      </div>
-                    )}
-                    
-                    {!q.imageUrl && q.visualDescription && (
-                        <div className="mb-4 p-3 bg-slate-50 border border-dashed border-slate-200 rounded text-sm text-slate-500 italic">
-                             Image not available: "{q.visualDescription}"
-                        </div>
-                    )}
-
                     <h3 className="text-lg text-slate-800 font-medium mb-4 leading-relaxed">
                         <span className="text-slate-400 mr-2">{idx + 1}.</span>
                         {q.text}

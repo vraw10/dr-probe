@@ -10,12 +10,10 @@ const SetupForm: React.FC<SetupFormProps> = ({ onStart, isLoading }) => {
   const [topic, setTopic] = useState('');
   const [count, setCount] = useState<number>(5);
   const [mode, setMode] = useState<QuizMode>('random');
-  const [isVisual, setIsVisual] = useState(false);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!topic.trim()) return;
-    onStart({ topic, count, mode, isVisual });
+    onStart({ topic, count, mode });
   };
 
   const getModeStyles = (m: QuizMode) => {
@@ -72,26 +70,6 @@ const SetupForm: React.FC<SetupFormProps> = ({ onStart, isLoading }) => {
             <span className="block text-sm font-semibold text-slate-700 uppercase tracking-wider">
               Exam Mode
             </span>
-            <div className="flex items-center gap-2">
-              <span className={`text-xs font-medium ${isVisual ? 'text-indigo-600' : 'text-slate-400'}`}>
-                Visual Questions
-              </span>
-              <button
-                type="button"
-                onClick={() => !isLoading && setIsVisual(!isVisual)}
-                className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                  isVisual ? 'bg-indigo-600' : 'bg-slate-200'
-                }`}
-              >
-                <span className="sr-only">Use visual mode</span>
-                <span
-                  aria-hidden="true"
-                  className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
-                    isVisual ? 'translate-x-5' : 'translate-x-0'
-                  }`}
-                />
-              </button>
-            </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
              <button type="button" onClick={() => setMode('random')} className={getModeStyles('random')} disabled={isLoading}>
@@ -151,9 +129,7 @@ const SetupForm: React.FC<SetupFormProps> = ({ onStart, isLoading }) => {
                 <span>Generating Exam...</span>
               </div>
               <span className="text-xs font-normal text-slate-300 animate-pulse">
-                {isVisual 
-                  ? "Synthesizing clinical imagery... hang tight!" 
-                  : "Dr. Probe is scanning her archives..."}
+                Dr. Probe is scanning her archives...
               </span>
             </div>
           ) : (

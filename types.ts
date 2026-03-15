@@ -10,15 +10,12 @@ export interface Question {
   difficulty: Difficulty;
   precision: Precision;
   explanation: string;
-  visualDescription?: string; // Description of the clinical image
-  imageUrl?: string; // Generated image URL
 }
 
 export interface QuizConfig {
   topic: string;
   count: number;
   mode: QuizMode;
-  isVisual: boolean;
 }
 
 export type AppStep = 'setup' | 'quiz' | 'results';

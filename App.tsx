@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { AppStep, Question, QuizConfig } from './types';
 import SetupForm from './components/SetupForm';
 import QuizView from './components/QuizView';
@@ -9,19 +9,9 @@ const App: React.FC = () => {
   const [step, setStep] = useState<AppStep>('setup');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-  
   const [config, setConfig] = useState<QuizConfig | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [userAnswers, setUserAnswers] = useState<Map<number, number>>(new Map());
-
-  // Auto-hide toast
-  useEffect(() => {
-    if (toastMessage) {
-      const timer = setTimeout(() => setToastMessage(null), 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [toastMessage]);
 
   const handleStart = async (newConfig: QuizConfig) => {
     setLoading(true);
@@ -30,20 +20,15 @@ const App: React.FC = () => {
     
     try {
       const generatedQuestions = await generateQuestions(
-        newConfig.topic, 
-        newConfig.count, 
-        newConfig.mode, 
-        [], 
-        newConfig.isVisual
+        newConfig.topic,
+        newConfig.count,
+        newConfig.mode,
+        []
       );
       setQuestions(generatedQuestions);
       setStep('quiz');
     } catch (err: any) {
-      if (err.message === "TOPIC_NOT_VISUAL") {
-        setToastMessage(`Topic "${newConfig.topic}" is not suitable for visual questions. Please deselect visual mode or change the topic.`);
-      } else {
-        setError(err.message || "Something went wrong generating questions.");
-      }
+      setError(err.message || "Something went wrong generating questions.");
     } finally {
       setLoading(false);
     }
@@ -58,22 +43,17 @@ const App: React.FC = () => {
       // Pass the current question texts to avoid repetitions
       const previousStems = questions.map(q => q.text);
       const generatedQuestions = await generateQuestions(
-        config.topic, 
-        config.count, 
-        config.mode, 
-        previousStems,
-        config.isVisual
+        config.topic,
+        config.count,
+        config.mode,
+        previousStems
       );
       
       setQuestions(generatedQuestions);
       setUserAnswers(new Map()); // Reset answers
       setStep('quiz');
     } catch (err: any) {
-      if (err.message === "TOPIC_NOT_VISUAL") {
-        setToastMessage("This topic is not relevant for visual questions.");
-      } else {
-        setError(err.message || "Something went wrong generating new questions.");
-      }
+      setError(err.message || "Something went wrong generating new questions.");
     } finally {
       setLoading(false);
     }
@@ -94,26 +74,6 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans relative">
-      {/* Custom Toast */}
-      {toastMessage && (
-        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-[60] animate-fade-in-down w-[90%] max-w-md">
-          <div className="bg-slate-800 text-white px-6 py-4 rounded-xl shadow-2xl flex items-start gap-3 border border-slate-700">
-             <div className="mt-0.5 text-yellow-400">
-               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-               </svg>
-             </div>
-             <div>
-               <h4 className="font-bold text-yellow-400">Check Topic Compatibility</h4>
-               <p className="text-sm text-slate-300 mt-1 leading-relaxed">{toastMessage}</p>
-             </div>
-             <button onClick={() => setToastMessage(null)} className="ml-auto text-slate-500 hover:text-white">
-               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-             </button>
-          </div>
-        </div>
-      )}
-
       <header className="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
            <div className="flex items-center gap-3">
@@ -139,11 +99,6 @@ const App: React.FC = () => {
                   }`}>
                     {config.mode === 'random' ? 'Standard' : config.mode === 'hard' ? 'Hard' : 'Tricky'}
                   </span>
-                  {config.isVisual && (
-                    <span className="hidden sm:inline-block px-3 py-1 bg-indigo-100 rounded-full text-xs font-bold text-indigo-700 border border-indigo-200">
-                      Visual
-                    </span>
-                  )}
                </div>
              )}
            </div>

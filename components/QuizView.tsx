@@ -63,36 +63,9 @@ const QuizView: React.FC<QuizViewProps> = ({ questions, onComplete, topic }) => 
       <div className="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden min-h-[400px] flex flex-col">
         {/* Badges */}
         <div className="bg-slate-50 px-6 py-3 border-b border-slate-100 flex gap-2">
-          {currentQuestion.visualDescription && (
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100 text-indigo-700 border border-indigo-200">
-              📸 Visual Case
-            </span>
-          )}
         </div>
 
         <div className="p-6 md:p-8 flex-grow">
-          {/* Visual Content: Image OR Fallback Description */}
-          {currentQuestion.imageUrl ? (
-            <div className="mb-8 rounded-lg overflow-hidden border border-slate-200 shadow-md bg-black/5 flex justify-center">
-              <img 
-                src={currentQuestion.imageUrl} 
-                alt="Clinical Finding" 
-                className="max-h-[400px] w-auto object-contain"
-              />
-            </div>
-          ) : currentQuestion.visualDescription && (
-            <div className="mb-6 p-4 md:p-6 bg-slate-100 border-2 border-dashed border-slate-300 rounded-xl flex flex-col items-center text-center">
-               <div className="w-12 h-12 bg-slate-200 rounded-full flex items-center justify-center text-2xl mb-3">
-                 🖼️
-               </div>
-               <h4 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-2">Clinical Image Finding</h4>
-               <p className="text-slate-700 font-medium italic">
-                 "{currentQuestion.visualDescription}"
-               </p>
-               <p className="text-xs text-slate-400 mt-2">(Image generation failed, showing description)</p>
-            </div>
-          )}
-
           <h3 className="text-xl md:text-2xl font-medium text-slate-800 leading-relaxed mb-8">
             {currentQuestion.text}
           </h3>
