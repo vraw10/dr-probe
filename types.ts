@@ -1,6 +1,6 @@
 export type Difficulty = 'E' | 'M' | 'H';
 export type Precision = 'Low' | 'Med' | 'High';
-export type QuizMode = 'random' | 'hard' | 'tricky';
+export type QuizMode = 'random' | 'hard' | 'tricky' | 'pyq';
 
 export interface Question {
   id: string;
@@ -10,6 +10,7 @@ export interface Question {
   difficulty: Difficulty;
   precision: Precision;
   explanation: string;
+  pyqReference?: string;
 }
 
 export interface QuizConfig {

@@ -71,7 +71,7 @@ const SetupForm: React.FC<SetupFormProps> = ({ onStart, isLoading }) => {
               Exam Mode
             </span>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
              <button type="button" onClick={() => setMode('random')} className={getModeStyles('random')} disabled={isLoading}>
                 <div className="font-bold text-lg">Standard</div>
                 <div className="text-xs opacity-80 leading-tight">Balanced mix of difficulty</div>
@@ -83,6 +83,10 @@ const SetupForm: React.FC<SetupFormProps> = ({ onStart, isLoading }) => {
              <button type="button" onClick={() => setMode('tricky')} className={getModeStyles('tricky')} disabled={isLoading}>
                 <div className="font-bold text-lg">Tricky</div>
                 <div className="text-xs opacity-80 leading-tight">Subtle traps & confusers</div>
+             </button>
+             <button type="button" onClick={() => setMode('pyq')} className={getModeStyles('pyq')} disabled={isLoading}>
+                <div className="font-bold text-lg">PYQ</div>
+                <div className="text-xs opacity-80 leading-tight">Previous year questions</div>
              </button>
           </div>
         </div>

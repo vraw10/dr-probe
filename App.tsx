@@ -23,7 +23,8 @@ const App: React.FC = () => {
         newConfig.topic,
         newConfig.count,
         newConfig.mode,
-        []
+        [],
+        newConfig.mode === 'pyq'
       );
       setQuestions(generatedQuestions);
       setStep('quiz');
@@ -46,7 +47,8 @@ const App: React.FC = () => {
         config.topic,
         config.count,
         config.mode,
-        previousStems
+        previousStems,
+        config.mode === 'pyq'
       );
       
       setQuestions(generatedQuestions);
@@ -93,11 +95,12 @@ const App: React.FC = () => {
                     {config.topic}
                   </span>
                   <span className={`hidden sm:inline-block px-3 py-1 rounded-full text-xs font-medium border ${
-                     config.mode === 'hard' ? 'bg-red-50 text-red-600 border-red-200' : 
+                     config.mode === 'hard' ? 'bg-red-50 text-red-600 border-red-200' :
                      config.mode === 'tricky' ? 'bg-purple-50 text-purple-600 border-purple-200' :
+                     config.mode === 'pyq' ? 'bg-amber-50 text-amber-600 border-amber-200' :
                      'bg-slate-100 text-slate-500 border-slate-200'
                   }`}>
-                    {config.mode === 'random' ? 'Standard' : config.mode === 'hard' ? 'Hard' : 'Tricky'}
+                    {config.mode === 'random' ? 'Standard' : config.mode === 'hard' ? 'Hard' : config.mode === 'tricky' ? 'Tricky' : 'PYQ'}
                   </span>
                </div>
              )}
