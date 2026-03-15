@@ -1,4 +1,4 @@
-import { GoogleGenAI, Type, Chat } from "@google/genai";
+import { GoogleGenAI, Type } from "@google/genai";
 import { Question, QuizMode } from "../types";
 
 // Initialize Gemini Client
@@ -188,13 +188,4 @@ export const generateQuestions = async (topic: string, count: number, mode: Quiz
     console.error("Error generating questions:", error);
     throw new Error("Failed to generate questions. Please try again.");
   }
-};
-
-export const getMedicalChat = (): Chat => {
-  return ai.chats.create({
-    model: "gemini-3-flash-preview",
-    config: {
-      systemInstruction: `You are an elite medical tutor for NEET PG aspirants.`
-    }
-  });
 };
